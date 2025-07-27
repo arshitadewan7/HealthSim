@@ -12,14 +12,14 @@ private:
     std::string name;
     int age;
 
-    std::vector<Organ> organs;
+    std::vector<Organ*> organs;           // Changed to pointers
     std::vector<Condition> conditions;
     std::vector<Treatment> treatments;
 
 public:
     Patient(std::string name, int age);
 
-    void addOrgan(const Organ& organ);
+    void addOrgan(Organ* organ);           // Accept pointer now
     void addCondition(const Condition& condition);
     void addTreatment(const Treatment& treatment);
 

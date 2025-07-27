@@ -5,7 +5,7 @@
 #include "Treatment.h"
 
 int main() {
-    // Create organs
+    // Create organs on the heap (or locally, but pass pointer)
     Organ heart("Heart");
     Organ liver("Liver");
     Organ pancreas("Pancreas");
@@ -20,9 +20,9 @@ int main() {
 
     // Create patient
     Patient patient("John Doe", 55);
-    patient.addOrgan(heart);
-    patient.addOrgan(liver);
-    patient.addOrgan(pancreas);
+    patient.addOrgan(&heart);       // Pass pointers now
+    patient.addOrgan(&liver);
+    patient.addOrgan(&pancreas);
 
     patient.addCondition(diabetes);
     patient.addTreatment(insulin);

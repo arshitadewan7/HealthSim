@@ -4,7 +4,7 @@
 Patient::Patient(std::string name, int age)
     : name(name), age(age) {}
 
-void Patient::addOrgan(const Organ& organ) {
+void Patient::addOrgan(Organ* organ) {
     organs.push_back(organ);
 }
 
@@ -29,21 +29,20 @@ void Patient::simulateMonth(float dietQuality, float exerciseLevel, float sleepH
 
     // Apply treatments to organs to heal
     for (auto& treatment : treatments) {
-        treatment.applyTreatment(organs);
+        treatment.applyTreatment(organs);  // Now vector<Organ*> matches
     }
 
     // Lifestyle impact: healthier lifestyle heals organs a bit
     float lifestyleScore = (dietQuality + exerciseLevel + (sleepHours / 8.0f)) / 3.0f;
     for (auto& organ : organs) {
-        float healAmount = lifestyleScore * 5.0f; // example healing rate
-        organ.heal(healAmount);
+        organ->heal(lifestyleScore * 5.0f); // Use pointer dereference
     }
 }
 
 void Patient::printHealthReport() const {
     std::cout << "Health Report for " << name << " (Age " << age << "):\n";
     for (const auto& organ : organs) {
-        std::cout << "- " << organ.getName() << ": " << organ.getHealthScore() << "/100 health\n";
+        std::cout << "- " << organ->getName() << ": " << organ->getHealthScore() << "/100 health\n";
     }
     for (const auto& condition : conditions) {
         std::cout << "- Condition " << condition.getName() << " severity: " << condition.getSeverity() << "/100\n";
